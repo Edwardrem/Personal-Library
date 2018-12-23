@@ -1,22 +1,56 @@
-// server.js
-// where your node app starts
+'use strict';
 
-// init project
-var express = require('express');
+var express     = require('express');
+var bodyParser  = require('body-parser');
+var cors        = require('cors');
+
+var apiRoutes         = require('./routes/api.js');
+var fccTestingRoutes  = require('./routes/fcctesting.js');
+var runner            = require('./test-runner');
+
 var app = express();
 
-// we've started you off with Express, 
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
+app.use('/public', express.static(process.cwd() + '/public'));
 
-// http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'));
+app.use(cors({origin: '*'})); //USED FOR FCC TESTING PURPOSES ONLY!
 
-// http://expressjs.com/en/starter/basic-routing.html
-app.get('/', function(request, response) {
-  response.sendFile(__dirname + '/views/index.html');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//Index page (static HTML)
+app.route('/')
+  .get(function (req, res) {
+    res.sendFile(process.cwd() + '/views/index.html');
+  });
+
+//For FCC testing purposes
+fccTestingRoutes(app);
+
+//Routing for API 
+apiRoutes(app);  
+    
+//404 Not Found Middleware
+app.use(function(req, res, next) {
+  res.status(404)
+    .type('text')
+    .send('Not Found');
 });
 
-// listen for requests :)
-var listener = app.listen(process.env.PORT, function() {
-  console.log('Your app is listening on port ' + listener.address().port);
+//Start our server and tests!
+app.listen(process.env.PORT || 3000, function () {
+  console.log("Listening on port " + process.env.PORT);
+  if(process.env.NODE_ENV==='test') {
+    console.log('Running Tests...');
+    setTimeout(function () {
+      try {
+        runner.run();
+      } catch(e) {
+        var error = e;
+          console.log('Tests are not valid:');
+          console.log(error);
+      }
+    }, 1500);
+  }
 });
+
+module.exports = app; //for unit/functional testing
