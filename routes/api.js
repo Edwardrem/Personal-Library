@@ -18,16 +18,19 @@ module.exports = function (app) {
 
   app.route('/api/books')
     .get(function (req, res){
+      res.send('GET request received');
       //response will be array of book objects
       //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
     })
     
     .post(function (req, res){
+      res.send('POST request received');
       var title = req.body.title;
       //response will contain new book object including atleast _id and title
     })
     
     .delete(function(req, res){
+      res.send('GET :id request received');
       //if successful response will be 'complete delete successful'
     });
 
@@ -35,6 +38,7 @@ module.exports = function (app) {
 
   app.route('/api/books/:id')
     .get(function (req, res){
+      res.send('GET :id request received');
       var bookid = req.params.id;
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
     })
