@@ -3,12 +3,21 @@
 var express     = require('express');
 var bodyParser  = require('body-parser');
 var cors        = require('cors');
+var helmet      = require('helmet');
 
 var apiRoutes         = require('./routes/api.js');
 var fccTestingRoutes  = require('./routes/fcctesting.js');
 var runner            = require('./test-runner');
 
 var app = express();
+
+// Nothing from my website will be cached in my client
+// as a security measure.
+app.use(helmet.noCache());
+
+// I will see that the site is powered by 'PHP 4.2.0'
+// even though it isn't as a security measure.
+app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }));
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
