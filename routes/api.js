@@ -30,7 +30,7 @@ module.exports = function (app) {
     })
     
     .delete(function(req, res){
-      res.send('DELETE request received');
+
       //if successful response will be 'complete delete successful'
     });
 
