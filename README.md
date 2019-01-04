@@ -34,5 +34,5 @@ Project Personal Library
 # Methods Used and Return Objects
 
 1. POST title, return object {title: '', _id: ''}
-2. GET, return array []
+2. GET, return array [{title: '', _id: '', commentcount: ''}]
 3. GET _id, return object {title: '', _id: '', comments: []}
