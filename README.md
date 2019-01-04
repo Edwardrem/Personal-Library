@@ -23,3 +23,16 @@ Project Personal Library
 8. If I try to request a book that doesn't exist I will get a 'no book exists' message.
 9. I can send a delete request to /api/books to delete all books in the database. Returned will be 'complete delete successful' if successful.
 10. All 6 functional tests required are complete and passing.
+
+
+# Model Schema
+
+1. Collection: library
+  - String book_title
+  - String comment
+  
+# Methods Used and Return Objects
+
+1. POST title, return object {title: '', _id: ''}
+2. GET, return array []
+3. GET _id, return object {title: '', _id: '', comments: []}
