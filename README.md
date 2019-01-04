@@ -36,3 +36,7 @@ Project Personal Library
 1. POST title, return object {title: '', _id: ''}
 2. GET, return array [{title: '', _id: '', commentcount: ''}]
 3. GET _id, return object {title: '', _id: '', comments: []}
+4. POST comment, return object {title: '', _id: '', comments: []}
+5. DELETE one book, return 'delete successful'
+6. Any method for a book that doesn't exist, return 'no book exists'
+7. DELETE all books, return 'complete delete successful'

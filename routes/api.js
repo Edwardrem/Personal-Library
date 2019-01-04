@@ -30,7 +30,8 @@ module.exports = function (app) {
     })
     
     .delete(function(req, res){
-
+      //console.log(req.body);
+      console.log('delete pressed');
       //if successful response will be 'complete delete successful'
     });
 

@@ -65,6 +65,7 @@ $( document ).ready(function() {
       dataType: 'json',
       data: $('#newBookForm').serialize(),
       success: function(data) {
+        
         //update list
       }
     });
@@ -77,6 +78,7 @@ $( document ).ready(function() {
       dataType: 'json',
       data: $('#newBookForm').serialize(),
       success: function(data) {
+        
         //update list
       }
     });
