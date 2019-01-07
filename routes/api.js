@@ -11,9 +11,27 @@
 var expect = require('chai').expect;
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
-const MONGODB_CONNECTION_STRING = process.env.DB;
+const MONGO_URI   = process.env.MONGO_URI;
 //Example connection: MongoClient.connect(MONGODB_CONNECTION_STRING, function(err, db) {});
 
+const bookSchema = require('../models/books.js');
+const conn = MongoClient.connect(MONGO_URI, { useNewUrlParser: true});
+
+/*
+conn.then(function(client) {
+  client.db(dbName)
+        .createCollection('Library', {
+            validator: {
+              $jsonSchema: {
+                issueSchema
+              }
+            }
+        }, function(err, coll) {
+            assert.equal(null, err);
+            return;
+        })
+});
+*/
 module.exports = function (app) {
 
   app.route('/api/books')
