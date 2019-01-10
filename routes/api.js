@@ -8,43 +8,30 @@
 
 'use strict';
 
-'use strict';
-require('dotenv').config();
-
-// Bring in the packages
-const expect      = require('chai').expect;
+const expect = require('chai').expect;
 const MongoClient = require('mongodb').MongoClient;
-const ObjectId    = require('mongodb').ObjectID;
-const assert      = require('assert');
-const Logger      = require('mongodb').Logger;
-
-// Bring in the env variables
+const ObjectId = require('mongodb').ObjectId;
 const MONGO_URI   = process.env.MONGO_URI;
-const URL         = process.env.URL;
-const dbName      = process.env.DB;
-
-// Bring in the Schema
+const dbName = process.env.DB;
+const assert = require('assert');
+//Example connection: MongoClient.connect(MONGODB_CONNECTION_STRING, function(err, db) {});
 const bookSchema = require('../models/books.js');
-
-// Create MongoClient connection to the mLab URL
 const conn = MongoClient.connect(MONGO_URI, { useNewUrlParser: true});
 
-// Consider emitting messages during client events
-// http://mongodb.github.io/node-mongodb-native/3.1/reference/management/sdam-monitoring/
 
 conn.then(function(client) {
   client.db(dbName)
         .createCollection('Library', {
             validator: {
-              $jsonSchema: {
-                bookSchema
-              }
-            }
+              $jsonSchema: bookSchema
+            },
+            validationAction: "warn"
         }, function(err, coll) {
             assert.equal(null, err);
             return;
         })
 });
+
 module.exports = function (app) {
 
   app.route('/api/books')
