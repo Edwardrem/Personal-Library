@@ -28,8 +28,8 @@ Project Personal Library
 # Model Schema
 
 1. Collection: library
-  - String book_title
-  - String comment
+    - String book_title
+    - String comment
   
 # Methods Used and Return Objects
 
