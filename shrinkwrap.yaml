@@ -6,7 +6,7 @@ dependencies:
   express: 4.16.4
   helmet: 3.15.0
   mocha: 3.5.3
-  mongodb: 2.2.36
+  mongodb: 3.1.10
   zombie: 5.0.8
 packages:
   /abab/1.0.4:
@@ -128,16 +128,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-81HTKWnTL6XXpVZxVCY9korjvR8=
-  /bson/1.0.9:
+  /bson/1.1.0:
     dev: false
     engines:
       node: '>=0.6.19'
     resolution:
-      integrity: sha512-IQX9/h7WdMBIW/q/++tGd+emQr0XMdeZ6icnT/74Xk9fnabWn+gZgpE+9V+gujL3hhJOoNrnDVY7tWdzc7NUTg==
-  /buffer-shims/1.0.0:
-    dev: false
-    resolution:
-      integrity: sha1-mXjOMXOIxkmth5MCjDR37wRKi1E=
+      integrity: sha512-9Aeai9TacfNtWXOYarkFJRW2CWo+dRon+fuLZYJmvLV3+MiUp0bEI6IAZfXEIg7/Pl/7IWlLaDnhzTsD81etQA==
   /bytes/3.0.0:
     dev: false
     engines:
@@ -340,10 +336,6 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k=
-  /es6-promise/3.2.1:
-    dev: false
-    resolution:
-      integrity: sha1-7FYjOGgDKQkgcXDDlEjiREndH8Q=
   /escape-html/1.0.3:
     dev: false
     resolution:
@@ -837,6 +829,11 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
+  /memory-pager/1.5.0:
+    dev: false
+    optional: true
+    resolution:
+      integrity: sha512-ZS4Bp4r/Zoeq6+NLJpP+0Zzm0pR8whtGPf1XExKLJBAczGMnSi3It14OiNCStjQjM6NU1okjQGSxgEZN8eBYKg==
   /merge-descriptors/1.0.1:
     dev: false
     resolution:
@@ -911,23 +908,25 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-/6na001MJWEtYxHOV1WLfsmR4YIynkUEhBwzsb+fk2qmQ3iqsi258l/Q2MWHJMImAcNpZ8DEdYAK72NHoIQ9Eg==
-  /mongodb-core/2.1.20:
+  /mongodb-core/3.1.9:
     dependencies:
-      bson: 1.0.9
+      bson: 1.1.0
       require_optional: 1.0.1
+      safe-buffer: 5.1.2
     dev: false
+    optionalDependencies:
+      saslprep: 1.0.2
     resolution:
-      integrity: sha512-IN57CX5/Q1bhDq6ShAR6gIv4koFsZP7L8WOK1S0lR0pVDQaScffSMV5jxubLsmZ7J+UdqmykKw4r9hG3XQEGgQ==
-  /mongodb/2.2.36:
+      integrity: sha512-MJpciDABXMchrZphh3vMcqu8hkNf/Mi+Gk6btOimVg1XMxLXh87j6FAvRm+KmwD1A9fpu3qRQYcbQe4egj23og==
+  /mongodb/3.1.10:
     dependencies:
-      es6-promise: 3.2.1
-      mongodb-core: 2.1.20
-      readable-stream: 2.2.7
+      mongodb-core: 3.1.9
+      safe-buffer: 5.1.2
     dev: false
     engines:
-      node: '>=0.10.3'
+      node: '>=4'
     resolution:
-      integrity: sha512-P2SBLQ8Z0PVx71ngoXwo12+FiSfbNfGOClAao03/bant5DgLNkOPAck5IaJcEk4gKlQhDEURzfR3xuBG1/B+IA==
+      integrity: sha512-Uml42GeFxhTGQVml1XQ4cD0o/rp7J2ROy0fdYUcVitoE7vFqEhKH4TYVqRDpQr/bXtCJVxJdNQC1ntRxNREkPQ==
   /ms/0.7.3:
     dev: false
     resolution:
@@ -1033,10 +1032,6 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
-  /process-nextick-args/1.0.7:
-    dev: false
-    resolution:
-      integrity: sha1-FQ4gt1ZZCtP5EJPyWk8q2L/zC6M=
   /process-nextick-args/2.0.0:
     dev: false
     resolution:
@@ -1097,18 +1092,6 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha512-9esiElv1BrZoI3rCDuOuKCBRbuApGGaDPQfjSflGxdy4oyzqghxu6klEkkVIvBje+FF0BX9coEv8KqW6X/7njw==
-  /readable-stream/2.2.7:
-    dependencies:
-      buffer-shims: 1.0.0
-      core-util-is: 1.0.2
-      inherits: 2.0.3
-      isarray: 1.0.0
-      process-nextick-args: 1.0.7
-      string_decoder: 1.0.3
-      util-deprecate: 1.0.2
-    dev: false
-    resolution:
-      integrity: sha1-BwV6y+JGeyIELTb5jFrVBwVOlbE=
   /readable-stream/2.3.6:
     dependencies:
       core-util-is: 1.0.2
@@ -1177,6 +1160,15 @@ packages:
     dev: false
     resolution:
       integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
+  /saslprep/1.0.2:
+    dependencies:
+      sparse-bitfield: 3.0.3
+    dev: false
+    engines:
+      node: '>=6'
+    optional: true
+    resolution:
+      integrity: sha512-4cDsYuAjXssUSjxHKRe4DTZC0agDwsCqcMqtJAQPzC74nJ7LfAJflAtC1Zed5hMzEQKj82d3tuzqdGNRsLJ4Gw==
   /sax/1.2.4:
     dev: false
     resolution:
@@ -1228,6 +1220,13 @@ packages:
     optional: true
     resolution:
       integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
+  /sparse-bitfield/3.0.3:
+    dependencies:
+      memory-pager: 1.5.0
+    dev: false
+    optional: true
+    resolution:
+      integrity: sha1-/0rm5oZWBWuks+eSqzM004JzyhE=
   /sshpk/1.16.0:
     dependencies:
       asn1: 0.2.4
@@ -1257,12 +1256,6 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
-  /string_decoder/1.0.3:
-    dependencies:
-      safe-buffer: 5.1.2
-    dev: false
-    resolution:
-      integrity: sha512-4AH6Z5fzNNBcH+6XDMfA/BTt87skxqJlO0lAh3Dker5zThcAxG6mKz+iGu308UKoPPQ8Dcqx/4JhujzltRa+hQ==
   /string_decoder/1.1.1:
     dependencies:
       safe-buffer: 5.1.2
@@ -1472,5 +1465,5 @@ specifiers:
   express: ^4.14.0
   helmet: ^3.1.0
   mocha: ^3.2.0
-  mongodb: ^2.2.16
+  mongodb: ^3.1.10
   zombie: ^5.0.5
