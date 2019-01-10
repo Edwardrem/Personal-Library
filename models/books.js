@@ -9,7 +9,8 @@ const bookSchema = {
       description: "must be a string and is required"
     },
     comment: {
-      bsonType: 
+      bsonType: "array",
+      description: "must be a string and is required"
     }
   }
 };

@@ -13,7 +13,6 @@ var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
 const MONGO_URI   = process.env.MONGO_URI;
 //Example connection: MongoClient.connect(MONGODB_CONNECTION_STRING, function(err, db) {});
-
 const bookSchema = require('../models/books.js');
 const conn = MongoClient.connect(MONGO_URI, { useNewUrlParser: true});
 
@@ -23,9 +22,10 @@ conn.then(function(client) {
         .createCollection('Library', {
             validator: {
               $jsonSchema: {
-                issueSchema
+                bookSchema
               }
-            }
+            },
+            validatorAction: "warn"
         }, function(err, coll) {
             assert.equal(null, err);
             return;
