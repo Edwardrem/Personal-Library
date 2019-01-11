@@ -44,12 +44,12 @@ module.exports = function (app) {
     .post(function (req, res){
       //res.send('POST request received');
       var title = req.body.title;
+      
       //response will contain new book object including atleast _id and title
     })
     
     .delete(function(req, res){
       //console.log(req.body);
-      console.log('delete pressed');
       //if successful response will be 'complete delete successful'
     });
 
