@@ -44,7 +44,11 @@ module.exports = function (app) {
     .post(function (req, res){
       //res.send('POST request received');
       var title = req.body.title;
-      
+      conn.then(function(client){
+        client.db(dbName)
+          .collection('Library')
+          .insertOne(
+      })
       //response will contain new book object including atleast _id and title
     })
     
