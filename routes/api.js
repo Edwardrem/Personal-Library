@@ -36,6 +36,7 @@ module.exports = function (app) {
 
   app.route('/api/books')
     .get(function (req, res){
+    
       //res.send('GET request received');
       //response will be array of book objects
       //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
@@ -106,7 +107,7 @@ module.exports = function (app) {
 
   app.route('/api/books/:id')
     .get(function (req, res){
-    
+      
       // Check that bookId provided in the form is a valid ObjectId input argument
       let checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
       if (!checkForHexRegExp.test(req.params.id)) {

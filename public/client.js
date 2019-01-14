@@ -23,7 +23,7 @@ $( document ).ready(function() {
     $("#detailTitle").html('<b>'+itemsRaw[this.id].book_title+'</b> (id: '+itemsRaw[this.id]._id+')');
     $.getJSON('/api/books/'+itemsRaw[this.id]._id, function(data) {
       comments = [];
-      $.each(data.comments, function(i, val) {
+      $.each(data.comment, function(i, val) {
         comments.push('<li>' +val+ '</li>');
       });
       comments.push('<br><form id="newCommentForm"><input style="width:300px" type="text" class="form-control" id="commentToAdd" name="comment" placeholder="New Comment"></form>');
@@ -46,7 +46,6 @@ $( document ).ready(function() {
   
   $('#bookDetail').on('click','button.addComment',function() {
     var newComment = $('#commentToAdd').val();
-    console.log(this.id);
     $.ajax({
       url: '/api/books/'+this.id,
       type: 'post',
