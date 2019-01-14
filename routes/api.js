@@ -34,7 +34,7 @@ conn.then(function(client) {
 
 module.exports = function (app) {
 
-  app.route('/api/books/:bookID')
+  app.route('/api/books')
     .get(function (req, res){
       //res.send('GET request received');
       //response will be array of book objects
