@@ -49,6 +49,9 @@ module.exports = function (app) {
             .collection('Library')
             .find(query).toArray(function(error, result){
               if (error) { return console.log('Error finding docs: ' + error); }
+              for (let idx in result) {
+                console.log(result[idx]);
+              }
               callback(result);
             })
       });
@@ -60,13 +63,13 @@ module.exports = function (app) {
   })
     
     .post(function (req, res){
-      //res.send('POST request received');
+    
       let message = {};
       var title = req.body.title;
       conn.then(function(client){
         client.db(dbName)
           .collection('Library')
-          .insertOne({book_title: title}, function(err, data){
+          .insertOne({book_title: title, comment:[]}, function(err, data){
             if (err) { message = {"error": "Book could not be added"}; }
             message = { book_title: title, _id: data._id};
             res.send(message);
