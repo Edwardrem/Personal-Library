@@ -153,6 +153,7 @@ module.exports = function (app) {
     })
     
     .post(function(req, res){
+    console.log(req.body);
       // Check that bookId provided in the form is a valid ObjectId input argument
       let checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
       if (!checkForHexRegExp.test(req.params.id)) {

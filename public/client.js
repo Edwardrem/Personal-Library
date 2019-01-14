@@ -23,7 +23,7 @@ $( document ).ready(function() {
     $("#detailTitle").html('<b>'+itemsRaw[this.id].book_title+'</b> (id: '+itemsRaw[this.id]._id+')');
     $.getJSON('/api/books/'+itemsRaw[this.id]._id, function(data) {
       comments = [];
-      $.each(data.comment, function(i, val) {
+      $.each(data[0].comment, function(i, val) {
         comments.push('<li>' +val+ '</li>');
       });
       comments.push('<br><form id="newCommentForm"><input style="width:300px" type="text" class="form-control" id="commentToAdd" name="comment" placeholder="New Comment"></form>');
@@ -50,9 +50,9 @@ $( document ).ready(function() {
       url: '/api/books/'+this.id,
       type: 'post',
       dataType: 'text',
-      data: $('#newCommentForm').serialize(),
+      data: $('#newCommentForm').serialize() + ',
       success: function(data) {
-        comments.unshift(newComment); //adds new comment to top of list
+        comments.unshift('<li>' + newComment + '</li>'); //adds new comment to top of list
         $('#detailComments').html(comments.join(''));
       }
     });
