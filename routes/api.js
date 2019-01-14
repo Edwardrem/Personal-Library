@@ -39,7 +39,25 @@ module.exports = function (app) {
       //res.send('GET request received');
       //response will be array of book objects
       //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
-    })
+    function responseCallback(obj){
+      res.send(obj);
+    };
+    
+    function connectAndFind(query, callback) {
+      conn.then(function(client){
+      client.db(dbName)
+            .collection('Library')
+            .find(query).toArray(function(error, result){
+              if (error) { return console.log('Error finding docs: ' + error); }
+              callback(result);
+            })
+      });
+    };
+    
+    connectAndFind({}, responseCallback);
+    
+  
+  })
     
     .post(function (req, res){
       //res.send('POST request received');
