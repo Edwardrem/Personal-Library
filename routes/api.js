@@ -56,6 +56,13 @@ module.exports = function (app) {
               if (!result) { 
                 responseObj = 'Book could not be found';
               } else {
+                result.forEach(function(doc) {
+                
+                })
+                
+                if (doc.comment.length > 0) {
+                      doc.commentCount = doc.comment.length;
+                }
                 responseObj = result;
               }
               callback(responseObj);
@@ -122,7 +129,9 @@ module.exports = function (app) {
                   result.forEach(function(doc) {
                     if (!doc.comment || doc.comment.length == 0) {
                       doc.comment = [];
+
                     }
+                    
                   })
                   responseObj = result;
                 }
@@ -154,9 +163,8 @@ module.exports = function (app) {
           res.send(obj);
         }
         
-        if (obj.bookId) {
-          console.log(obj._id.toString());
-          res.redirect('/api/books/' + obj._id.toString());
+        if (obj._id) {
+          res.redirect('/api/books/' + obj._id);
         }
         
       }
