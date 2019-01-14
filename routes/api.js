@@ -57,12 +57,17 @@ module.exports = function (app) {
                 responseObj = 'Book could not be found';
               } else {
                 result.forEach(function(doc) {
+                  if (doc.comment) {
+                    doc.commentCount = doc.comment.length;
+                  };
+                  
+                  if (!doc.comment) {
+                    doc.commentCount = 0;
+                  };
                 
                 })
                 
-                if (doc.comment.length > 0) {
-                      doc.commentCount = doc.comment.length;
-                }
+                
                 responseObj = result;
               }
               callback(responseObj);
