@@ -40,21 +40,20 @@ module.exports = function (app) {
       //response will be array of book objects
       //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
     function responseCallback(obj){
-      
+
       res.send(obj);
     };
     
     function connectAndFind(query, callback) {
+      let responseObj;
       conn.then(function(client){
       client.db(dbName)
             .collection('Library')
             .find(query).toArray(function(error, result){
-              if (error) { return console.log('Error finding docs: ' + error); }
-              for (let idx in result) {
-                if (result[idx].comment) {
-                  //console.log(result[idx].comment);
-                  result[idx].commentCount = result[idx].comment.length;
-                }
+              if (error) { 
+                message = 'No book could be found';
+              } else {
+                message = result;
               }
               callback(result);
             })
