@@ -138,9 +138,42 @@ module.exports = function (app) {
     })
     
     .post(function(req, res){
-  
-      var bookid = req.params.id;
+      // Check that bookId provided in the form is a valid ObjectId input argument
+      let checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
+      if (!checkForHexRegExp.test(req.params.id)) {
+        return res.send({"error": "Please provide valid book _id"});
+      };
+    
+      var bookid = { _id: ObjectId(req.params.id) };
       var comment = req.body.comment;
+    
+      let query = { $push: { comment: comment } };
+    
+      function responseCallback(obj){
+        res.send(obj);
+      }
+    
+      function connectAndAddComment(bookId, update, callback){
+        conn.then(function(client){
+          let responseObj = {};
+          
+          client.db(dbName)
+                .collection('Library')
+                .findOneAndUpdate(bookId, update, { returnOriginal: false }, function(error, result) {
+                  if (error || result.value == null || result.lastErrorObject.updatedExisting == false) {
+                    responseObj = {'error': 'Could not add comment' };
+                  }
+            
+                  if (result.value != null && result.ok == 1) {
+                    responseObj = { 'message': 'Comment added' };
+                  }
+            
+                
+          })
+          
+        })
+      }
+      connectAndAddComment(query, responseCallback);
       //json res format same as .get
     })
     
