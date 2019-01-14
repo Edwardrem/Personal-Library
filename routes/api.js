@@ -64,7 +64,6 @@ module.exports = function (app) {
     };
     
     // Build query document
-    console.log(req.params.bookID);
     connectAndFind({}, responseCallback);
     
   
@@ -96,7 +95,33 @@ module.exports = function (app) {
   app.route('/api/books/:id')
     .get(function (req, res){
       //res.send('GET :id request received');
-      var bookid = req.params.id;
+      var bookid = ObjectID(req.params.id);
+      let query = { _id: bookid };
+      function responseCallback(obj){
+
+        res.send(obj);
+      };
+
+      function connectAndFind(query, callback) {
+        let responseObj;
+        conn.then(function(client){
+        client.db(dbName)
+              .collection('Library')
+              .find(query).toArray(function(error, result){
+                if (error) { return console.log('Error in finding book'); }
+                if (result.length == 0) { 
+                  responseObj = 'Book could not be found';
+                } else {
+                  responseObj = result;
+                }
+                callback(responseObj);
+              })
+        });
+      };
+
+      // Build query document
+      connectAndFind(query, responseCallback);
+    
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
     })
     
