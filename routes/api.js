@@ -144,13 +144,21 @@ module.exports = function (app) {
         return res.send({"error": "Please provide valid book _id"});
       };
     
-      var bookid = { _id: ObjectId(req.params.id) };
+      var bookId = { _id: ObjectId(req.params.id) };
       var comment = req.body.comment;
     
-      let query = { $push: { comment: comment } };
+      let update = { $push: { comment: comment } };
     
       function responseCallback(obj){
-        res.send(obj);
+        if (obj.error) {
+          res.send(obj);
+        }
+        
+        if (obj.bookId) {
+          console.log(obj._id.toString());
+          res.redirect('/api/books/' + obj._id.toString());
+        }
+        
       }
     
       function connectAndAddComment(bookId, update, callback){
@@ -162,18 +170,21 @@ module.exports = function (app) {
                 .findOneAndUpdate(bookId, update, { returnOriginal: false }, function(error, result) {
                   if (error || result.value == null || result.lastErrorObject.updatedExisting == false) {
                     responseObj = {'error': 'Could not add comment' };
+                    
                   }
             
                   if (result.value != null && result.ok == 1) {
-                    responseObj = { 'message': 'Comment added' };
+                    responseObj = bookId;
                   }
             
-                
+                  return callback(responseObj);
+            
+                  
           })
           
         })
       }
-      connectAndAddComment(query, responseCallback);
+      connectAndAddComment(bookId, update, responseCallback);
       //json res format same as .get
     })
     
