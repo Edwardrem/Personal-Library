@@ -50,7 +50,7 @@ module.exports = function (app) {
             .find(query).toArray(function(error, result){
               if (error) { return console.log('Error finding docs: ' + error); }
               for (let idx in result) {
-                console.log(result[idx]);
+                console.log(result[idx].comment);
               }
               callback(result);
             })
