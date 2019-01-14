@@ -34,11 +34,13 @@ conn.then(function(client) {
 
 module.exports = function (app) {
 
-  app.route('/api/books')
+  app.route('/api/books/:bookID')
     .get(function (req, res){
       //res.send('GET request received');
       //response will be array of book objects
       //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
+    
+    let query = {};
     function responseCallback(obj){
 
       res.send(obj);
@@ -50,16 +52,19 @@ module.exports = function (app) {
       client.db(dbName)
             .collection('Library')
             .find(query).toArray(function(error, result){
-              if (error) { 
-                message = 'No book could be found';
+              if (error) { return console.log('Error in finding book'); }
+              if (!result) { 
+                responseObj = 'Book could not be found';
               } else {
-                message = result;
+                responseObj = result;
               }
-              callback(result);
+              callback(responseObj);
             })
       });
     };
     
+    // Build query document
+    console.log(req.params.bookID);
     connectAndFind({}, responseCallback);
     
   
