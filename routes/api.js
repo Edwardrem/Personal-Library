@@ -94,11 +94,18 @@ module.exports = function (app) {
 
   app.route('/api/books/:id')
     .get(function (req, res){
+    
+      // Check that bookId provided in the form is a valid ObjectId input argument
+      let checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
+      if (!checkForHexRegExp.test(req.params.id)) {
+        return res.send({"error": "Please provide valid book _id"});
+      };
+    
       //res.send('GET :id request received');
-      var bookid = ObjectID(req.params.id);
+      var bookid = ObjectId(req.params.id);
       let query = { _id: bookid };
+    
       function responseCallback(obj){
-
         res.send(obj);
       };
 
@@ -112,6 +119,11 @@ module.exports = function (app) {
                 if (result.length == 0) { 
                   responseObj = 'Book could not be found';
                 } else {
+                  result.forEach(function(doc) {
+                    if (!doc.comment || doc.comment.length == 0) {
+                      doc.comment = [];
+                    }
+                  })
                   responseObj = result;
                 }
                 callback(responseObj);
@@ -126,6 +138,7 @@ module.exports = function (app) {
     })
     
     .post(function(req, res){
+  
       var bookid = req.params.id;
       var comment = req.body.comment;
       //json res format same as .get
