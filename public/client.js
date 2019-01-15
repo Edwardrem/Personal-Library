@@ -28,8 +28,8 @@ $( document ).ready(function() {
         comments.push('<li>' +val+ '</li>');
       });
       comments.push(formHTML);
-      comments.push('<br><button class="btn btn-info addComment" id="'+ data._id+'">Add Comment</button>');
-      comments.push('<button class="btn btn-danger deleteBook" id="'+ data._id+'">Delete Book</button>');
+      comments.push('<br><button class="btn btn-info addComment" id="'+ data[0]._id+'">Add Comment</button>');
+      comments.push('<button class="btn btn-danger deleteBook" id="'+ data[0]._id+'">Delete Book</button>');
       $('#detailComments').html(comments.join(''));
     });
   });
