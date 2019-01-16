@@ -219,14 +219,15 @@ module.exports = function (app) {
             
             
                   if (result.result.n == 1 && result.result.ok == 1){
-                    message = 'deleted ' + bookID;
+                    message = 'delete successful';
                   };
             
-                  
-                })
-        })
+                  return callback(message);
+            
+                });
+        });
       
-      }
+      };
       //if successful response will be 'delete successful'
     });
   
