@@ -99,6 +99,9 @@ module.exports = function (app) {
     })
     
     .delete(function(req, res){
+      conn.then(function(client){
+        client.db(dbName)
+      })
       //console.log(req.body);
       //if successful response will be 'complete delete successful'
     });
@@ -204,8 +207,22 @@ module.exports = function (app) {
     })
     
     .delete(function(req, res){
-      var bookid = req.params.id;
-      console.log(bookid);
+    
+      
+    
+       var bookID = req.params.id;
+      let checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
+      
+      if (!checkForHexRegExp.test(bookID)) {
+        return res.send('_id error');
+      };
+    
+      bookID = ObjectId(bookID);
+      console.log(bookID);
+    
+      function resCallback(obj){
+        res.send(obj);
+      };
       
       function connectAndRemove(bookID, callback){
         let message = '';
@@ -213,6 +230,7 @@ module.exports = function (app) {
           client.db(dbName)
                 .collection('Library')
                 .deleteOne({_id: bookID}, function(error, result){
+  
                   if (error || result.result.n == 0) {
                     message = 'Could not delete ' + bookID;
                   };
@@ -228,6 +246,8 @@ module.exports = function (app) {
         });
       
       };
+      
+      connectAndRemove(bookID, resCallback);
       //if successful response will be 'delete successful'
     });
   
