@@ -68,6 +68,13 @@ suite('Functional Tests', function() {
     suite('GET /api/books => array of books', function(){
       
       test('Test GET /api/books',  function(done){
+        chai.request(server)
+          .get('/api/books')
+          .query({})
+          .end(function(err, res){
+            assert.equal(res.status,200);
+            assert.isArray(res.body);
+        })
         done();
       });      
       
