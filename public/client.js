@@ -57,6 +57,7 @@ $( document ).ready(function() {
         $('#detailComments').html(comments.join(''));
       }
     });
+  
   });
   
   $('#newBook').click(function() {

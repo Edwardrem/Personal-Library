@@ -43,7 +43,6 @@ module.exports = function (app) {
     
     let query = {};
     function responseCallback(obj){
-
       res.send(obj);
     };
     
@@ -83,7 +82,7 @@ module.exports = function (app) {
   })
     
     .post(function (req, res){
-    
+      
       let message = {};
       var title = req.body.title;
       conn.then(function(client){
@@ -99,8 +98,27 @@ module.exports = function (app) {
     })
     
     .delete(function(req, res){
+      console.log('delete all books');
+      function responseCallback(obj){
+        res.send(obj);
+      };
+    
+      let message = '';
+    
       conn.then(function(client){
         client.db(dbName)
+              .collection('Library')
+              .deleteMany({}, function(error, result){
+                if (error || result.result.n == 0) {
+                  message = 'Could not delete books';
+                }
+          
+               if (result.result.n > 0 && result.result.ok == 1){
+                 message = 'deleted successfully';
+               }
+          
+               return responseCallback(message);
+        })
       })
       //console.log(req.body);
       //if successful response will be 'complete delete successful'
