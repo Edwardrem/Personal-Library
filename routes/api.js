@@ -55,7 +55,7 @@ module.exports = function (app) {
             .find(query).toArray(function(error, result){
               if (error) { return console.log('Error in finding book'); }
               if (!result) { 
-                responseObj = 'Book could not be found';
+                responseObj = 'No book exists';
               } else {
                 result.forEach(function(doc) {
                   if (doc.comment) {
@@ -205,6 +205,28 @@ module.exports = function (app) {
     
     .delete(function(req, res){
       var bookid = req.params.id;
+      console.log(bookid);
+      
+      function connectAndRemove(bookID, callback){
+        let message = '';
+        conn.then(function(client){
+          client.db(dbName)
+                .collection('Library')
+                .deleteOne({_id: bookID}, function(error, result){
+                  if (error || result.result.n == 0) {
+                    message = 'Could not delete ' + bookID;
+                  };
+            
+            
+                  if (result.result.n == 1 && result.result.ok == 1){
+                    message = 'deleted ' + bookID;
+                  };
+            
+                  
+                })
+        })
+      
+      }
       //if successful response will be 'delete successful'
     });
   
