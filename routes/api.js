@@ -85,6 +85,9 @@ module.exports = function (app) {
       
       let message = {};
       var title = req.body.title;
+      if (!title) {
+        res.send({"error": 'Please provide book title'});
+      }
       conn.then(function(client){
         client.db(dbName)
           .collection('Library')
