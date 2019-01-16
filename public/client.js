@@ -64,6 +64,7 @@ $( document ).ready(function() {
     $.ajax({
       url: '/api/books',
       type: 'post',
+      dataType: 'text',
       data: $('#newBookForm').serialize(),
       success: function(data) {
         

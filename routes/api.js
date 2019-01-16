@@ -154,7 +154,7 @@ module.exports = function (app) {
               .find(query).toArray(function(error, result){
                 if (error) { return console.log('Error in finding book'); }
                 if (result.length == 0) { 
-                  responseObj = 'Book could not be found';
+                  responseObj = {"error": 'Book could not be found'};
                 } else {
                   result.forEach(function(doc) {
                     if (!doc.comment || doc.comment.length == 0) {

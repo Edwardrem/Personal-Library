@@ -84,10 +84,26 @@ suite('Functional Tests', function() {
     suite('GET /api/books/[id] => book object with [id]', function(){
       
       test('Test GET /api/books/[id] with id not in db',  function(done){
+        chai.request(server)
+          .get('/api/books/111111111111111111111111')
+          .query({})
+          .end(function(err, res){
+            assert.equal(res.status,200);
+            assert.equal(res.body.error, 'Book could not be found');
+        })
+        
         done();
       });
       
       test('Test GET /api/books/[id] with valid id in db',  function(done){
+        chai.request(server)
+          .get('/api/books/5c3fbe144f6a8648068f77b6')
+          .query({})
+          .end(function(err, res){
+            //console.log(res.body.title);
+            assert.equal(res.status,200);
+            assert.equal(res.body._id, 'Book could not be found');
+        })
         done();
       });
       
