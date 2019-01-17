@@ -215,7 +215,7 @@ module.exports = function (app) {
                   if (result.value != null && result.ok == 1) {
                     responseObj = bookId;
                   }
-            
+                  console.log(responseObj);
                   return callback(responseObj);
             
                   

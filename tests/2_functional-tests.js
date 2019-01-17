@@ -115,8 +115,11 @@ suite('Functional Tests', function() {
       
       test('Test POST /api/books/[id] with comment', function(done){
           chai.request(server)
-            .post('/api/books/5c3fbe144f6a8648068f77b6')
-            .send({})
+            .post('/api/books/5c3fcb61f039dd6100bf3a40')
+            .send({ comment: "test comment" })
+            .end(function(err, res){
+              console.log(res.body);
+          })
         done();
       });
       
