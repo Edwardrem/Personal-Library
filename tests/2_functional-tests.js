@@ -90,9 +90,10 @@ suite('Functional Tests', function() {
           .end(function(err, res){
             assert.equal(res.status,200);
             assert.equal(res.body.error, 'Book could not be found');
+            done();
         })
         
-        done();
+        
       });
       
       test('Test GET /api/books/[id] with valid id in db',  function(done){
@@ -100,11 +101,11 @@ suite('Functional Tests', function() {
           .get('/api/books/5c3fbe144f6a8648068f77b6')
           .query({})
           .end(function(err, res){
-            //console.log(res.body.title);
             assert.equal(res.status,200);
-            assert.equal(res.body._id, 'Book could not be found');
+            assert.equal(res.body[0]._id, '5c3fbe144f6a8648068f77b6');
+            done();
         })
-        done();
+        
       });
       
     });
@@ -113,6 +114,9 @@ suite('Functional Tests', function() {
     suite('POST /api/books/[id] => add comment/expect book object with id', function(){
       
       test('Test POST /api/books/[id] with comment', function(done){
+          chai.request(server)
+            .post('/api/books/5c3fbe144f6a8648068f77b6')
+            .send({})
         done();
       });
       
