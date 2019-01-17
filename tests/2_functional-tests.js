@@ -121,6 +121,8 @@ suite('Functional Tests', function() {
             .end(function(err, res){
               assert.equal(res.status,200);
               assert.equal(res.body[0]._id, '5c3fca442a3c5d57ed06b7df');
+              assert.property(res.body[0], 'book_title', 'Books in array should have book_title property');
+              assert.property(res.body[0], 'comment', 'Books in array should have comment property');
           })
         done();
       });
