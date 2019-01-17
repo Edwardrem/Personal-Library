@@ -101,7 +101,7 @@ module.exports = function (app) {
     })
     
     .delete(function(req, res){
-      console.log('delete all books');
+
       function responseCallback(obj){
         res.send(obj);
       };
@@ -177,7 +177,7 @@ module.exports = function (app) {
     })
     
     .post(function(req, res){
-      console.log(req.params.id);
+
       // Check that bookId provided in the form is a valid ObjectId input argument
       let checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
       if (!checkForHexRegExp.test(req.params.id)) {
@@ -215,7 +215,7 @@ module.exports = function (app) {
                   if (result.value != null && result.ok == 1) {
                     responseObj = bookId;
                   }
-                  console.log(responseObj);
+               
                   return callback(responseObj);
             
                   
@@ -239,7 +239,6 @@ module.exports = function (app) {
       };
     
       bookID = ObjectId(bookID);
-      console.log(bookID);
     
       function resCallback(obj){
         res.send(obj);
