@@ -22,7 +22,7 @@ Project Personal Library
 7. ~~I can delete /api/books/{_id} to delete a book from the collection. Returned will be 'delete successful' if successful.~~
 8. ~~If I try to request a book that doesn't exist I will get a 'no book exists' message.~~
 9. ~~I can send a delete request to /api/books to delete all books in the database. Returned will be 'complete delete successful' if successful.~~
-10. All 6 functional tests required are complete and passing.
+10. ~~All 6 functional tests required are complete and passing.~~
 
 
 # Model Schema
